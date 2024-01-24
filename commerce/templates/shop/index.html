@@ -1,1 +1,14 @@
-<h1>home</h1>
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+VKTEXTILE | home
+{% endblock title %}
+
+{% block content %} 
+{% include  'shop/includes/slider.html' %}
+ <div class= "container " style = "margin-top:70px ;">
+    <div class= "row">
+        <div class= "col-12"><h1>Home</h1></div>
+    </div>
+ </div>
+{% endblock content %}
