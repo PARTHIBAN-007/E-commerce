@@ -1,0 +1,29 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+VKTEXTILE | Register
+{% endblock title %}
+
+{% block content %} 
+ <div class= "container " style = "margin-top:70px ;">
+    <div class= "row">
+        <div class= "col-12"><h1>USER LOGIN </h1></div>
+        {% include  'shop/includes/message.html' %}
+    </div>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="mb-4">
+         <label for="" class="form-label">USER NAME</label>
+         <input type="text" name="username" id="username" class="form-control" placeholder="enter user name">
+        </div>
+        <div class="mb-4">
+         <label for="" class="form-label">EMAIL ID</label>
+         <input type="text" name="email" id="email" class="form-control" placeholder="enter email"">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">register</button>
+     </form>
+
+ </div>
+ 
+{% endblock content %}

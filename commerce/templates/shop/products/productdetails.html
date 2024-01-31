@@ -1,0 +1,60 @@
+
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+VKTEXTILE | home
+{% endblock title %}
+<style>
+  .card-image-top {
+    height: fit-content;
+    max-height: 200px;
+    max-width:400px;
+    width: fit-content;
+  }
+</style>
+{% block content %} 
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h4 class="mb-3">{{ products|upper}} Products</h4>
+          {% include  'shop/includes/message.html' %}
+          <hr style="border-color:#b8bfc2;">   
+          <div class="col-4 my-3 pic-box">
+              <img src="{{products.product_image.url}}"  class="card-image-top" alt="{{products}}">
+          </div>
+          <div class="col-8 my-3">
+            <h5 class="text-success">{{products | upper}}</h5>
+        
+            <p>{{products.description}}</p>
+            <h6 class="my-2 text-danger">Current Price : Rs. <s>{{products.original_price}}</s></h6>
+            <h5 class="my-2 text-primary">Offer Price   : Rs.{{products.selling_price}}</h5>
+            <div class="my-3">
+              {% if products.quantity > 0 %}
+              <input type="hidden" value="{{products.id}}" id="pid">
+              
+                <p>
+                  <div class="input-group" style="width:150px">
+                    <button class="input-group-text bg-success text-light" id="btnMinus" ><i class="fa fa-minus"></i></button>
+                      <input type="text" name="qty" id="txtQty" value="1" class="form-control text-center">
+                    <button class="input-group-text bg-success text-light" id="btnPlus"><i class="fa fa-plus"></i></button>
+                  </div>
+                </p>
+               <button class="btn btn-primary" id="btnCart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+              {% else %}
+              <button class="btn btn-secondary"><i class="fa fa-minus"></i> Out of Stock</button>
+              {% endif %}
+              <button class="btn btn-danger" id="btnFav"><i class="fa fa-heart"></i></button>
+            </div>
+        </div>
+
+
+          </div>
+
+
+        </div>
+        
+      </div>
+    </div>
+  </section>
+{% endblock content %}
