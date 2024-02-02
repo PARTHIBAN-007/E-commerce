@@ -1,8 +1,10 @@
+from django.http import  JsonResponse
 from django.shortcuts import redirect, render
 from . models import *
-from commerce.form import customeruserform
-from django.contrib import messages
 
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+import json
 
 
 # Create your views here
@@ -11,19 +13,71 @@ def home(request):
     return render(request,"shop/index.html", {"products":products})
 
 
-def login_page(request):
-    return render(request,"shop/login.html")
 
-def register(request):
-    form=customeruserform()
-    if request.method=='POST':
-        form=customeruserform(request.POST) 
-        if form.is_valid():
-            form.save()
-            messages.success(request,"registeration success")
-            
+def cart_page(request):
+  
+    cart=Cart.objects
+    return render(request,"shop/cart.html",{"cart":cart})
+ 
+
+def remove_cart(request,cid):
+  cartitem=Cart.objects.get(id=cid)
+  cartitem.delete()
+  return redirect("/cart")  
+  
+  
+def fav_page(request):
+    if request.headers.get('x-requested-with')=='XMLHttpRequest':
         
-    return render(request,"shop/register.html",{"form": form })
+            data=json.load(request)
+            product_id=data['pid']
+            product_status=Product.objects.get(id=product_id)
+            if product_status:
+                if Favourite.objects.filter(product_id=product_id):
+                    return JsonResponse({'status':'Product Already in Favourite'}, status=200)
+                else:
+                    Favourite.objects.create(product_id=product_id)
+                    return JsonResponse({'status':'Product Added to Favourite'}, status=200)
+        
+    else:
+        return JsonResponse({'status':'Invalid Access'}, status=200)
+ 
+ 
+ 
+def favviewpage(request):
+  
+    fav=Favourite.objects
+    return render(request,"shop/fav.html",{"fav":fav})
+  
+
+def remove_fav(request,fid):
+  item=Favourite.objects.get(id=fid)
+  item.delete()
+  return redirect("/favviewpage")
+
+def add_to_cart(request):
+   if request.headers.get('x-requested-with')=='XMLHttpRequest':
+    
+      data=json.load(request)
+      product_qty=data['product_qty']
+      product_id=data['pid']
+      #print(request.user.id)
+      product_status=Product.objects.get(id=product_id)
+      if product_status:
+        if Cart.objects.filter(product_id=product_id):
+          return JsonResponse({'status':'Product Already in Cart'}, status=200)
+        else:
+          if product_status.quantity>=product_qty:
+            Cart.objects.create(product_id=product_id,product_qty=product_qty)
+            return JsonResponse({'status':'Product Added to Cart'}, status=200)
+          else:
+            return JsonResponse({'status':'Product Stock Not Available'}, status=200)
+    
+
+
+
+ 
+
 
 def collection(request):
     catagory = Catagory.objects.filter(status = 1)

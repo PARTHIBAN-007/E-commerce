@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">VKTEXTILE</a>
+    <a class="navbar-brand" href="#">VK TEXTILE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="d-flex" role="search">
-        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      
       <div class="navbar-nav ms-auto">
         <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fa fa-cart-plus"></i>home</a>
-        <a class="nav-link active" aria-current="page" href="{% url 'register' %}"><i class="fa fa-user"></i>register</a>
-        <a class="nav-link active" aria-current="page" href=""><i class="fa fa-shopping-cart"></i>cart</a>
+        
+        
+        <a class="nav-link active" aria-current="page" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i>cart</a>
+        
+        
         <a class="nav-link active" aria-current="page" href="{% url 'collection' %}"><i class="fa fa-cubes"></i>collections</a>
       </div>  
       </div>  
