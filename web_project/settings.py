@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'sample',
         'HOST':'127.0.0.1',
         'USER':'root',
-        'PASSWORD':'kiot1234',
+        'PASSWORD':'aii7',
         'PORT':'3306'
     }
 }

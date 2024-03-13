@@ -16,7 +16,8 @@ def home(request):
 
 def cart_page(request):
   
-    cart=Cart.objects
+    cart=Cart.objects.all()
+    
     return render(request,"shop/cart.html",{"cart":cart})
  
 
@@ -75,7 +76,8 @@ def add_to_cart(request):
     
 
 
-
+def login_page(request):
+    return render(request,"shop/login.html")
  
 
 
@@ -87,6 +89,7 @@ def collection(request):
 def collectionview(request,name):
     if(Catagory.objects.filter(name=name,status = 1)):
         products= Product.objects.filter(category__name=name)
+        # print(products)
         return render(request,"shop/products/index.html", {"products":products,"category_name":name})
     else:
         messages.warning(request,"no such category found")
